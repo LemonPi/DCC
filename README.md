@@ -34,7 +34,7 @@ We have already provided [train](data/mnist/traindata.mat) and [test](data/mnist
 $ python pretraining.py --data mnist --tensorboard --id 1 --niter 50000 --lr 10 --step 20000
 ```
 
-Different settings for total iterations, learning rate and stepsize may be required for other datasets. Please find the details under the comment section inside the [pretraining](pytorch/pretraining.py) file.
+Different settings for total iterations, learning rate and stepsize may be required for other datasets. Please find the details under the comment section inside the [pretraining](dcc/pretraining.py) file.
 
 ## Extracting Pretrained Features ##
 
@@ -48,7 +48,7 @@ By default, the model checkpoint for pretrained SDAE NW is stored under [results
 
 ## Copying mkNN graph ##
 
-The [copyGraph](pytorch/copyGraph.py) program is used to merge the preprocessed mkNN graph (using the code provided by [RCC](https://bitbucket.org/sohilas/robust-continuous-clustering/src)) and the extracted pretrained features. Note the mkNN graph is built on the original and not on the SDAE features.
+The [copyGraph](dcc/copyGraph.py) program is used to merge the preprocessed mkNN graph (using the code provided by [RCC](https://bitbucket.org/sohilas/robust-continuous-clustering/src)) and the extracted pretrained features. Note the mkNN graph is built on the original and not on the SDAE features.
 
 ```
 $ python copyGraph.py --data mnist --graph pretrained.mat --features pretrained.pkl --out pretrained
@@ -56,7 +56,7 @@ $ python copyGraph.py --data mnist --graph pretrained.mat --features pretrained.
 
 The above command assumes that the graph is stored in the [pretrained.mat](data/mnist/pretrained.mat) file and the merged file is stored back to pretrained.mat file. 
 
-##### [DCC](pytorch/DCC.py) searches for the file with name pretrained.mat. Hence please retain the name. #####
+##### [DCC](dcc/DCC.py) searches for the file with name pretrained.mat. Hence please retain the name. #####
 
 ## Running Deep Continuous Clustering ##
 
@@ -72,7 +72,7 @@ The other preprocessed graph files can be found in gdrive [folder](https://drive
 
 ### Evaluation ###
 
-Towards the end of run of DCC algorithm, i.e., once the stopping criterion is met, [DCC](pytorch/DCC.py) starts evaluating the cluster assignment for the total dataset. The evaluation output is logged into tensorboard logger. The penultimate evaluated output is reported in the paper.
+Towards the end of run of DCC algorithm, i.e., once the stopping criterion is met, [DCC](dcc/DCC.py) starts evaluating the cluster assignment for the total dataset. The evaluation output is logged into tensorboard logger. The penultimate evaluated output is reported in the paper.
 
 ##### Like RCC, the AMI definition followed here differs slightly from the default definition found in the sklearn package. To match the results listed in the paper, please modify it accordingly. #####
 
@@ -82,7 +82,7 @@ The tensorboard logs for both pretraining and DCC will be stored in the "runs/DC
 
 Please find required files for MNIST dataset shared [here](https://drive.google.com/drive/folders/10DjPtVRHgZcM-dshm4MuyB5DmxpfG_hV?usp=sharing).
 
-The input file for SDAE pretraining, [traindata.mat](data/mnist/traindata.mat) and [testdata.mat](data/mnist/testdata.mat), stores the features of the 'N' data samples in a matrix format N x D. We followed 4:1 ratio to split train and validation data. The provided [make_data.py](pytorch/make_data.py) can be used to build training and validation data. The distinction of training and validation set is used only for the pretraining stage. For end-to-end training, there is no such distinction in unsupervised learning and hence all data has been used. 
+The input file for SDAE pretraining, [traindata.mat](data/mnist/traindata.mat) and [testdata.mat](data/mnist/testdata.mat), stores the features of the 'N' data samples in a matrix format N x D. We followed 4:1 ratio to split train and validation data. The provided [make_data.py](dcc/make_data.py) can be used to build training and validation data. The distinction of training and validation set is used only for the pretraining stage. For end-to-end training, there is no such distinction in unsupervised learning and hence all data has been used. 
 
 To construct mkNN edge set and to create preprocessed input file, [pretrained.mat](data/mnist/pretrained.mat), from the raw feature file, use [edgeConstruction.py](https://bitbucket.org/sohilas/robust-continuous-clustering/src/0516c0e1c65027ca0ffa1f09e0aa3074b99dea80/Toolbox/edgeConstruction.py) released by RCC. Please follow the instruction therein. Note that mkNN graph is built on the complete dataset. For simplicity, code (post pretraining phase) follows the data ordering of \[trainset, testset\] to arrange the data. This should be consistent even with mkNN construction.
 
