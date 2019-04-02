@@ -20,9 +20,15 @@ The source code and dataset are published under the MIT license. See [LICENSE](L
 
 ## Requirement ##
 
-* Python >= 2.7
+* Python >= 2.7 (supports python 3)
 * [Pytorch](http://pytorch.org/) >= v0.2.0
 * [Tensorboard-pytorch](https://github.com/lanpa/tensorboard-pytorch)
+
+## Install ##
+
+`pip install -e .`
+or
+`python -m pip install -e .`
 
 ## Pretraining SDAE ##
 

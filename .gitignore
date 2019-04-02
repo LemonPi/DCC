@@ -3,3 +3,4 @@
 __pychache__
 **/runs
 data
+*.egg-info
