@@ -1,16 +1,16 @@
 """Example for doing all steps in code only (other examples require calling different files separately)"""
 import torch.nn as nn
 
-from config import cfg, get_data_dir
+from dcc.config import cfg, get_data_dir
 from easydict import EasyDict as edict
-from edgeConstruction import compressed_data
+from dcc.edgeConstruction import compressed_data
 import matplotlib.pyplot as plt
-import data_params as dp
-import make_data
-import pretraining
-import extract_feature
-import copyGraph
-import DCC
+from dcc import data_params as dp
+from dcc import make_data
+from dcc import pretraining
+from dcc import extract_feature
+from dcc import copyGraph
+from dcc import DCC
 
 
 class IdentityNet(nn.Module):

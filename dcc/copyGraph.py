@@ -4,7 +4,7 @@ import h5py
 import numpy as np
 import argparse
 import scipy.io as sio
-from config import get_data_dir
+from dcc.config import get_data_dir
 
 # python 3 compatibility
 try:

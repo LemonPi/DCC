@@ -5,7 +5,7 @@ import scipy.io as sio
 import argparse
 import random
 
-from config import cfg, get_data_dir, get_output_dir
+from dcc.config import get_data_dir
 
 from sklearn.preprocessing import scale as skscale
 from sklearn.preprocessing import MinMaxScaler

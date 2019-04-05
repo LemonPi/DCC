@@ -1,6 +1,6 @@
 import os
 import os.path as osp
-from config import cfg, get_data_dir
+from dcc.config import cfg, get_data_dir
 
 import random
 import argparse

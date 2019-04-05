@@ -3,16 +3,16 @@ import os
 import random
 import numpy as np
 import argparse
-from config import cfg, get_data_dir, get_output_dir, AverageMeter, remove_files_in_dir
+from dcc.config import cfg, get_data_dir, get_output_dir, AverageMeter, remove_files_in_dir
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.autograd import Variable
 import torch.backends.cudnn as cudnn
-import data_params as dp
+import dcc.data_params as dp
 
-from custom_data import DCCPT_data
+from dcc.custom_data import DCCPT_data
 
 # used for logging to TensorBoard
 from tensorboard_logger import Logger

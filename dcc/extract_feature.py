@@ -3,8 +3,8 @@ import os
 import random
 import numpy as np
 import argparse
-from config import cfg, get_data_dir, get_output_dir
-import data_params as dp
+from dcc.config import cfg, get_data_dir, get_output_dir
+import dcc.data_params as dp
 
 # python 3 compatibility
 try:
@@ -16,7 +16,7 @@ import torch
 from torch.autograd import Variable
 import torch.backends.cudnn as cudnn
 
-from custom_data import DCCPT_data
+from dcc.custom_data import DCCPT_data
 
 # Parse all the input argument
 parser = argparse.ArgumentParser(description='Module for extracting features from pretrained SDAE')

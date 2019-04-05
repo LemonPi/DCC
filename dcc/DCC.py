@@ -6,9 +6,9 @@ import numpy as np
 import scipy.io as sio
 import argparse
 
-from config import cfg, get_data_dir, get_output_dir, AverageMeter, remove_files_in_dir
+from dcc.config import cfg, get_data_dir, get_output_dir, AverageMeter, remove_files_in_dir
 
-import data_params as dp
+import dcc.data_params as dp
 import matplotlib.pyplot as plt
 import io
 import PIL.Image
@@ -19,9 +19,9 @@ import torch.optim as optim
 from torch.autograd import Variable
 import torch.backends.cudnn as cudnn
 
-from custom_data import DCCPT_data, DCCFT_data, DCCSampler
-from DCCLoss import DCCWeightedELoss, DCCLoss
-from DCCComputation import makeDCCinp, computeHyperParams, computeObj
+from dcc.custom_data import DCCPT_data, DCCFT_data, DCCSampler
+from dcc.DCCLoss import DCCWeightedELoss, DCCLoss
+from dcc.DCCComputation import makeDCCinp, computeHyperParams, computeObj
 
 # used for logging to TensorBoard
 from tensorboard_logger import Logger

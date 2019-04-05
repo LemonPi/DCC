@@ -1,8 +1,8 @@
 from easydict import EasyDict as edict
-from extractSDAE import extractSDAE
-from extractconvSDAE import extractconvSDAE
-from SDAE import SDAE
-from convSDAE import convSDAE
+from dcc.extractSDAE import extractSDAE
+from dcc.extractconvSDAE import extractconvSDAE
+from dcc.SDAE import SDAE
+from dcc.convSDAE import convSDAE
 
 easy = edict()
 easy.name = 'easy'

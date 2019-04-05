@@ -8,7 +8,7 @@ import scipy.sparse as sparse
 from scipy.sparse.csgraph import connected_components
 from sklearn import metrics
 
-from config import cfg, get_data_dir
+from dcc.config import cfg, get_data_dir
 
 def makeDCCinp(args):
     # pretrained.mat or pretrained.h5 must be placed under the ../data/"db"/ directory. "db" stands for dataset
