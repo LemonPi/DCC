@@ -155,15 +155,7 @@ def mkNN(X, k, measure='euclidean'):
     return np.asarray(find(P)).T
 
 
-def compressed_data(dataset, n_samples, k, preprocess=None, algo='mknn', isPCA=None, format='mat'):
-    datadir = get_data_dir(dataset)
-    if format == 'pkl':
-        labels, features = load_train_and_validation(load_data, datadir, n_samples)
-    elif format == 'h5':
-        labels, features = load_train_and_validation(load_data_h5py, datadir, n_samples)
-    else:
-        labels, features = load_train_and_validation(load_matdata, datadir, n_samples)
-
+def compressed_data_directly(labels, features, k, preprocess=None, algo='mknn', isPCA=None):
     features = feature_transformation(features, preprocessing=preprocess)
 
     # PCA is computed for Text dataset. Please refer RCC paper for exact details.
@@ -181,6 +173,21 @@ def compressed_data(dataset, n_samples, k, preprocess=None, algo='mknn', isPCA=N
 
     print('The time taken for edge set computation is {}'.format(time() - t0))
 
+    output = {'X': features, 'w': weights[:, :2], 'gtlabels': labels}
+    return output
+
+
+def compressed_data(dataset, n_samples, k, preprocess=None, algo='mknn', isPCA=None, format='mat'):
+    datadir = get_data_dir(dataset)
+    if format == 'pkl':
+        labels, features = load_train_and_validation(load_data, datadir, n_samples)
+    elif format == 'h5':
+        labels, features = load_train_and_validation(load_data_h5py, datadir, n_samples)
+    else:
+        labels, features = load_train_and_validation(load_matdata, datadir, n_samples)
+
+    output = compressed_data_directly(labels, features, k, preprocess, algo, isPCA)
+
     filepath = os.path.join(datadir, 'pretrained')
     if format == 'h5':
         import h5py
@@ -190,7 +197,8 @@ def compressed_data(dataset, n_samples, k, preprocess=None, algo='mknn', isPCA=N
         fo.create_dataset('gtlabels', data=labels)
         fo.close()
     else:
-        sio.savemat(filepath + '.mat', mdict={'X': features, 'w': weights[:, :2], 'gtlabels': labels})
+        sio.savemat(filepath + '.mat', mdict=output)
+    return output
 
 
 def parse_args():

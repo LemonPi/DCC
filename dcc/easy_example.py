@@ -40,6 +40,7 @@ plt.show()
 # then construct mkNN graph
 k = 50
 compressed_data(dp.easy.name, N, k, preprocess='none', algo='knn', isPCA=None, format='mat')
+# creates pretrained.mat
 
 # then pretrain to get features
 args = edict()
