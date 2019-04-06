@@ -159,6 +159,13 @@ def make_easy_visual_data(path, N=600):
 
 
 def save_misc_data(path, X, Y, N):
+    # necessary if passing in tensors
+    try:
+        X = X.numpy()
+        Y = Y.numpy()
+    except AttributeError:
+        pass
+
     threshold_index = int(N * 4/5)
     sio.savemat(osp.join(path, 'traindata.mat'), {'X': X[:threshold_index], 'Y': Y[:threshold_index]})
     sio.savemat(osp.join(path, 'testdata.mat'), {'X': X[threshold_index:], 'Y': Y[threshold_index:]})

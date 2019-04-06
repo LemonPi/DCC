@@ -159,7 +159,10 @@ def compressed_data_directly(labels, features, k, preprocess=None, algo='mknn', 
     features = feature_transformation(features, preprocessing=preprocess)
 
     # PCA is computed for Text dataset. Please refer RCC paper for exact details.
-    features1 = features.copy()
+    try:
+        features1 = features.copy()
+    except AttributeError:
+        features1 = features.clone()
     if isPCA is not None:
         pca = PCA(n_components=isPCA, svd_solver='full').fit(features)
         features1 = pca.transform(features)
