@@ -209,6 +209,8 @@ def main(args, net=None):
 
     output = {'Z': Z, 'U': U, 'gtlabels': labels, 'w': pairs, 'cluster':assignment}
     sio.savemat(os.path.join(outputdir, 'features'), output)
+    output['U'] = criterion2.U
+    return output
 
 def load_weights(args, outputdir, net):
     filename = os.path.join(outputdir, args.torchmodel)
@@ -316,7 +318,10 @@ def test(testloader, net, criterion, epoch, use_cuda, _delta, pairs, numeval, fl
 
 def plot_to_image(U, title):
     plt.clf()
-    plt.scatter(U[:,0], U[:,1])
+    if U.ndim > 1 and U.shape[1] > 1:
+        plt.scatter(U[:,0], U[:,1])
+    else:
+        plt.scatter(U[:,0], np.random.rand(U.shape[0]))
     plt.title(title)
     buf = io.BytesIO()
     plt.savefig(buf, format='png')

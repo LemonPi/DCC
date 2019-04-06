@@ -74,6 +74,7 @@ def main(args, net=None):
     features, features_dr, labels = extract(dataloader, net, use_cuda)
     print('Done.\n')
 
+    output = {'labels': labels, 'Z': np.squeeze(features_dr), 'data': np.squeeze(features)}
     feat_path = os.path.join(datadir, args.feat)
     if args.h5:
         import h5py
@@ -84,9 +85,9 @@ def main(args, net=None):
         fo.close()
     else:
         fo = open(feat_path + '.pkl', 'wb')
-        pickle.dump({'labels': labels, 'Z': np.squeeze(features_dr), 'data': np.squeeze(features)}, fo, protocol=2)
+        pickle.dump(output, fo, protocol=2)
         fo.close()
-    return features, features_dr, labels
+    return output
 
 def extract(dataloader, net, use_cuda):
     net.eval()
