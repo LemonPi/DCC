@@ -48,9 +48,12 @@ parser.add_argument('--tensorboard', help='Log progress to TensorBoard', action=
 parser.add_argument('--id', type=int, help='identifying number for storing tensorboard logs')
 parser.add_argument('--clean_log', action='store_true', help='remove previous tensorboard logs under this ID')
 
+plot_scales = None
 
 def main(args, net=None):
     global oldassignment
+    global plot_scales
+    plot_scales = None
 
     datadir = get_data_dir(args.db)
     outputdir = get_output_dir(args.db)
@@ -317,11 +320,19 @@ def test(testloader, net, criterion, epoch, use_cuda, _delta, pairs, numeval, fl
     return features, U, change_in_assign, assignment
 
 def plot_to_image(U, title):
+    global plot_scales
     plt.clf()
     if U.ndim > 1 and U.shape[1] > 1:
         plt.scatter(U[:,0], U[:,1])
     else:
         plt.scatter(U[:,0], np.random.rand(U.shape[0]))
+    if plot_scales is None:
+        ax = plt.gca()
+        plot_scales = [ax.get_xlim(), ax.get_ylim()]
+    else:
+        plt.xlim(plot_scales[0])
+        plt.ylim(plot_scales[1])
+
     plt.title(title)
     buf = io.BytesIO()
     plt.savefig(buf, format='png')
